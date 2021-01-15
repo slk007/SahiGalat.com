@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail{% endblock title %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <h1 class="">Judge</h1>
+</div>
+
+<h1>{{ question.question_text }}</h1>
+<h4 class="text-primary">{{ question.question_description }}</h4>
+<p>
+    {% for topic in question.topics.all %}
+    <a href="{% url 'topic_detail' topic.id %}"><span class="badge badge-secondary badge-pill">#{{ topic.topic_name }}</span></a>
+    {% endfor %}
+</p>
+<p class="text-secondary">Last Updated: {{ question.updated }} by @{{ question.owner.username }}</p>
+
+<div class="row">
+    <div class="col-6">
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Vote Here</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">What's your judgment ?</p>
+                <form action="{% url 'vote' question.id %}" method="post">
+                    {% csrf_token %}
+                    {% for choice in question.choice_set.all %}
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label for="choice{{ forloop.counter }}">
+                        {% if choice.choice_text.lower == 'sahi' %}
+                        <p class="text-success">{{ choice.choice_text }} <i class="fa fa-thumbs-up fa-lg"></i></p>
+                        {% elif choice.choice_text.lower == 'galat' %}
+                        <p class="text-danger">{{ choice.choice_text }} <i class="fa fa-thumbs-down fa-lg"></i></p>
+                        {% else %}
+                        {{ choice.choice_text }}
+                        {% endif %}
+                    </label><br>
+
+                    {% endfor %}
+                    <input type="submit" class="btn btn-outline-success" value="Vote">
+                </form>
+                <br>
+                <p class="Results">
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Results
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <p class="lead">Total Votes: {{total_votes}}</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{sahi_percentage}}%"
+                                aria-valuenow="{{sahi_percentage}}" aria-valuemin="0" aria-valuemax="100">Sahi
+                                {{sahi_percentage|floatformat}} %</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{galat_percentage}}%"
+                                aria-valuenow="{{galat_percentage}}" aria-valuemin="0" aria-valuemax="100">Galat
+                                {{galat_percentage|floatformat}} %</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="rows">
+            <a href="{% url 'question_list'%}" class="btn btn-outline-danger">Go Back</a>
+        </div>
+
+    </div>
+
+    <div class="col-6">
+        <img src="{{ question.image }}" alt="" style="width:100%; height:350px" class="img-thumbnail">
+    </div>
+</div>
+
+
+
+{% endblock content %}

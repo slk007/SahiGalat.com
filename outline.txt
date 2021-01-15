@@ -1,0 +1,20 @@
+make migrations to accounts app first and then poll app
+
+Question
+    owner = ForeignKey(User)
+    question_text = CharField
+    question_description = CharField
+    
+    created = DateTimeField
+    updated = DateTimeField
+    image = CharField
+
+Choice
+    question = ForeignKey(Question)
+    choice_text = CharField
+    votes = IntegerField
+
+Vote
+    user = ForeignKey(User)
+    question = ForeignKey(Question)
+    choice = ForeignKey(Choice)
