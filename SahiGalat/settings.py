@@ -89,7 +89,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(default=config('AWS_POSTGRES_KEY'))
+DATABASES['default'] = dj_database_url.config(default=config('POSTGRES_KEY'))
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
