@@ -4,9 +4,7 @@
 
 {% block content %}
 
-<div class="row justify-content-center">
-    <h1 class="">Judge</h1>
-</div>
+<h1 class="row justify-content-center mb-4">Judge</h1>
 
 <h1>{{ question.question_text }}</h1>
 <h4 class="text-primary">{{ question.question_description }}</h4>
@@ -15,10 +13,10 @@
     <a href="{% url 'topic_detail' topic.id %}"><span class="badge badge-secondary badge-pill">#{{ topic.topic_name }}</span></a>
     {% endfor %}
 </p>
-<p class="text-secondary">Last Updated: {{ question.updated }} by @{{ question.owner.username }}</p>
+<p class="text-secondary"><small> Updated: {{ question.updated }} by @{{ question.owner.username }}</small></p>
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-lg-6">
 
         <div class="card">
             <div class="card-header">
@@ -38,10 +36,10 @@
                         {% else %}
                         {{ choice.choice_text }}
                         {% endif %}
-                    </label><br>
-
+                    </label>
+                    <br>
                     {% endfor %}
-                    <input type="submit" class="btn btn-outline-success" value="Vote">
+                    <button type="submit" class="btn btn-outline-success">Vote</button>
                 </form>
                 <br>
                 <p class="Results">
@@ -67,19 +65,11 @@
                 </div>
             </div>
         </div>
-
-        <br>
-        <div class="rows">
-            <a href="{% url 'question_list'%}" class="btn btn-outline-danger">Go Back</a>
-        </div>
-
     </div>
 
-    <div class="col-6">
+    <div class="col-12 col-lg-6">
         <img src="{{ question.image }}" alt="" style="width:100%; height:350px" class="img-thumbnail">
     </div>
 </div>
-
-
-
+<br><br>
 {% endblock content %}
