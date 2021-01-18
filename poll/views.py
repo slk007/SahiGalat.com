@@ -88,7 +88,7 @@ def vote(request, pk):
             # can't vote
             messages.error(
                 request, "You already voted this poll", extra_tags='alert alert-warning alert-dismissible fade show')
-            return HttpResponseRedirect(reverse_lazy('question_detail'))
+            return HttpResponseRedirect(reverse('question_detail', args=(question.id,)))
         else:
             # can vote
             vote = Vote(user=request.user, question=question, choice=selected_choice)
