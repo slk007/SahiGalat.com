@@ -53,3 +53,13 @@ class Vote(models.Model):
 
     def __str__(self):
         return f'"{self.user.username}"" voted - "{self.choice.choice_text}"" for - "{self.question.question_text}"'
+
+
+class Comment(models.Model):
+    question = models.ForeignKey(Question, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment_text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} -on- {self.question} - commented {self.comment_text}"

@@ -13,7 +13,7 @@
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center mb-1">
                     <a href="{% url 'topic_detail' topic.id %}"># {{ topic.topic_name }}</a>
-                    <a href="{% url 'topic_detail' topic.id %}"><span class="badge badge-success badge-pill">{{ topic.questions.count }} Question(s)</span></a>
+                    <a class="lead" href="{% url 'topic_detail' topic.id %}"><span class="badge badge-success badge-pill">{{ topic.questions.count }} Question{{ topic.questions.count|pluralize }}</span></a>
                 </li>
             </ul>
             {% endfor %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Choice, Vote, Topic
+from .models import Question, Choice, Vote, Topic, Comment
 
 
 # admin.site.register(Question)
@@ -17,3 +17,4 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Topic)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Vote)
+admin.site.register(Comment)
